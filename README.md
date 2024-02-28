@@ -31,11 +31,12 @@ python typos_fixer.py
 ## Configuration
 You can customize the behavior of Typos-Fixer by modifying the used model and tweaking the prompt in the main.py script:
 
-OLLAMA_ENDPOINT: The endpoint URL of the OLLAMA API.
-OLLAMA_CONFIG: Configuration options for the OLLAMA API.
-PROMPT_TEMPLATE: Template for the text prompt sent to the OLLAMA API.
+- OLLAMA_ENDPOINT: The endpoint URL of the OLLAMA API.
+- OLLAMA_CONFIG: Configuration options for the OLLAMA API.
+- PROMPT_TEMPLATE: Template for the text prompt sent to the OLLAMA API.
 Hotkey bindings can be adjusted by modifying the dictionary passed to keyboard.GlobalHotKeys().
-Contributing
+
+## Contributing
 Contributions are welcome! If you encounter any issues or have suggestions for improvements, please feel free to open an issue or submit a pull request.
 
 License
