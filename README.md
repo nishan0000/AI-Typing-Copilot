@@ -12,7 +12,7 @@ TypAi is a AI-Typing Copilot designed to assist in fixing typos, casing, and pun
 ## Installation
 1. Clone this repository to your local machine:
 ```
-git clone https://github.com/your-username/Typos-Fixer.git
+git clone https://github.com/nishan0000/TypAi.git
 ```
 2. Install the required dependencies:
 ```
