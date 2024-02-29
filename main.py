@@ -4,48 +4,84 @@ import pyperclip
 import time
 import httpx
 from string import Template
+import LLMConfigure
 
-# Function to handle the 'Alt+X' hotkey event
-def on_alt_x():
-    clean_text()
-
+# Creating keyboard controller
 controller = Controller()
 
-# OLLAMA API endpoint and configuration
-OLLAMA_ENDPOINT = "http://localhost:11434/api/generate"
-OLLAMA_CONFIG = {
-    "model": "mistral",
-    "keep_alive": "5m",
-    "stream": False,
-}
+# Creating llm
+llm = LLMConfigure.create_llm()
 
 # Template for the prompt sent to the OLLAMA API
-PROMPT_TEMPLATE = Template(
+PROMPT_TEMPLATE_SIMPLEFIX = Template(
     """Fix all typos and casing and punctasfuation in this trq ext, but pvsdgreserve all new linbfe chasdracters:
 
 $text
 
-Return only the corrected text, don't include a preamble and dont change the words or structure of thw words even if its grammatically wrong.
+Return only the corrected text, don't include a preamble and dont change the words or structure of thw words even if its 
+grammatically wrong.
 """
 )
 
+# Template to fix typos and grammar
+PROMPT_TEMPLATE_GRAMMARFIX = Template(
+    """Correct all grammatical errors in this text, along with typos, casings and ounctuations ensuring that the 
+    structure, punctuation, and casing are improved for clarity and coherence, but preserve all newline characters:
+
+$text
+
+Return only the corrected text. Do not include a preamble, and ensure that the words or structure of the words are 
+not altered, even if they are grammatically incorrect.
+"""
+)
+
+# Template to conversion to professional manner
+PROMPT_TEMPLATE_PROFESSIONAL_REPHRASE = Template(
+    """Rephrase the following text in a professional manner, correcting typos, casings, and grammar mistakes to enhance clarity and professionalism. Ensure that the structure, punctuation, and casing are improved, but preserve all newline characters:
+
+$text
+
+Return only the rephrased text. Do not include a preamble, and ensure that the original meaning of the text is preserved, 
+even if the structure or wording is significantly altered. Importantly, try to maintain the total number of words in the output nearly same as input text
+"""
+)
+
+
+# Function to handle the 'Alt+X' hotkey event
+def on_alt_x():
+    mode = 'normal'
+    print('1 worked')
+    clean_text(mode)
+
+def on_alt_z():
+    mode = 'grammar'
+    print('2 worked')
+    clean_text(mode)
+
+def on_alt_q():
+    mode = 'pro'
+    print('3 worked')
+    clean_text(mode)
+
+
+
 # Function to fix text using OLLAMA API
-def fix_text(text):
-    prompt = PROMPT_TEMPLATE.substitute(text=text)
-    response = httpx.post(
-        OLLAMA_ENDPOINT,
-        json={"prompt": prompt, **OLLAMA_CONFIG},
-        headers={"Content-Type": "application/json"},
-        timeout=10,
-    )
-    if response.status_code != 200:
-        print("Error", response.status_code)
-        return None
-    return response.json()["response"].strip()
+def fix_text(text, mode):
+    if mode == 'normal':
+        prompt = PROMPT_TEMPLATE_SIMPLEFIX.substitute(text=text)
+    elif mode == 'grammar':
+        prompt = PROMPT_TEMPLATE_GRAMMARFIX.substitute(text=text)
+    elif mode == 'pro':
+        prompt = PROMPT_TEMPLATE_PROFESSIONAL_REPHRASE.substitute(text=text)
+
+    response = llm.invoke(prompt)
+    return response
+
+
 
 
 # Function to clean and fix the text
-def clean_text():
+def clean_text(mode):
 
     # Selecting the text
     with controller.pressed(Key.ctrl):
@@ -56,7 +92,7 @@ def clean_text():
     text = pyperclip.paste()
 
     # Fixing the text
-    fixed_text = fix_text(text)
+    fixed_text = fix_text(text, mode)
 
     # Pasting back the text
     pyperclip.copy(fixed_text)
@@ -65,5 +101,5 @@ def clean_text():
         controller.tap('v')
 
 # Registering the hotkey event listener
-with keyboard.GlobalHotKeys({'<alt>+x' : on_alt_x}) as h:
+with keyboard.GlobalHotKeys({'<alt>+x' : on_alt_x, '<alt>+z' : on_alt_z, '<alt>+q' : on_alt_q}) as h:
     h.join()

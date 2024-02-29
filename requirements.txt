@@ -3,3 +3,6 @@ pyperclip==1.8.2
 requests
 httpx
 string
+python-dotenv==1.0.1
+langchain_google_genai==0.0.6
+langchain
