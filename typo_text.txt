@@ -1,4 +1,28 @@
-"Thiis is a sampel text withh somme typpos. Itt's imporrtant too remmeber that typos can 
-hapen tto anyone, eveen the mosst carefull writters. Buut withh a littllee proofreadiing, 
-we cann catch mosst of themm beefore they becomme a problem. Don'tt let typos hold youu backk 
-fromm communicatiing effectivelyy!"
+# Text With Typos
+
+## Real
+I catn't believve I accidenyally sent the emaiil to the wrogn person!
+
+## Output
+I catn't believve I accidenyally sent the emaiil to the wrogn person!
+
+
+
+
+# Text with grammar Mistake
+
+## Real
+Me and him, we goes to the store yesterday and buyed lot's of candy, but they're all gone now!
+
+## Output
+Me and him, we goes to the store yesterday and buyed lot's of candy, but they're all gone now!
+
+
+
+# Professional Tone 
+
+## Real
+Hey boss! Just a quick heads-up: super grateful for all your help. Let's crush it this week!
+
+## Output
+Hey boss! Just a quick heads-up: super grateful for all your help. Let's crush it this week!
