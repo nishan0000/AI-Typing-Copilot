@@ -1,4 +1,3 @@
-# TypAi
 TypAi is a AI-Typing Copilot designed to assist in fixing typos, casing, and punctuation errors in text using the Google Gemini API. It provides a convenient way to correct text by simply pressing an assigned hotkey (Alt+X by default).
 
 ## Features
